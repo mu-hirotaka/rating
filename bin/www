@@ -1,0 +1,39 @@
+#!/usr/bin/env node
+var debug = require('debug')('rating');
+var app = require('../app');
+
+app.set('port', process.env.PORT || 3000);
+
+var server = app.listen(app.get('port'), function() {
+  debug('Express server listening on port ' + server.address().port);
+});
+
+var socketIO = require('socket.io');
+var io = socketIO.listen(server);
+
+var players = [
+  { id: 1, name: '遠藤', img: 'endo' },
+  { id: 2, name: '香川', img: 'kagawa' },
+];
+
+var userRating = {
+  1: { num: 0, sum: 0, id: 1, name: '遠藤'},
+  2: { num: 0, sum: 0, id: 2, name: '香川'},
+};
+
+io.on('connection', function(socket) {
+
+  socket.emit('login', {
+    players: players,
+    summary: userRating,
+  });
+
+  socket.on('rating', function(data) {
+    console.log(data);
+    userRating[data.id].num++;
+    userRating[data.id].sum += parseInt(data.rating);
+    io.sockets.emit('summary view', {
+      summary: userRating,
+    });
+  });
+});

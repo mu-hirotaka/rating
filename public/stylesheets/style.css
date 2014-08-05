@@ -1,0 +1,39 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.player-info {
+  margin-left:0px;
+  margin-right:0px;
+  width: 100px;
+}
+
+.input-area {
+  height: 120px;
+}
+ 
+.btn-area {
+}
+
+
+.player-img {
+  height: 100px;
+  width: 100px;
+  background-size: contain !Important;
+  background-repeat: no-repeat;
+}
+.player-name {
+  height: 20px;
+  width: 100px;
+  text-align: center;
+}
+
