@@ -15,7 +15,7 @@ $(function() {
           + '<div class="col-xs-9">'
             + '<div class="input-area">'
               + '<form>'
-                + '<input type="text" name="opinion" size="28">'
+                + '<input type="text" name="opinion" size="25">'
                 + '<div class="btn-area">'
                   + '<select class="selectbox" name="text">'
                     + '<option value="10">10</option>'
