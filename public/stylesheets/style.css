@@ -1,6 +1,13 @@
 body {
   padding: 2px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #eee;
+}
+
+h3 {
+  font-size: 18px;
+  border-bottom: solid 2px #000;
+  padding-bottom: 4px;
 }
 
 a {
@@ -11,15 +18,16 @@ ul {
   list-style-type: none;
   padding: 0;
 }
-
-.player-info {
-  margin-left:0px;
-  margin-right:0px;
-  width: 100px;
+/*
+.col-xs-3, .col-xs-9 {
+  padding-left: 5px;
+  padding-right: 5px;
 }
+*/
 
 .input-area {
-  height: 120px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
  
 .btn-area {
@@ -27,14 +35,10 @@ ul {
 
 
 .player-img {
-  height: 100px;
-  width: 100px;
-  background-size: contain !Important;
+  box-sizing: border-box;
   background-repeat: no-repeat;
 }
 .player-name {
-  height: 20px;
-  width: 100px;
   text-align: center;
 }
 

@@ -8,16 +8,14 @@ $(function() {
     _.each(players, function(item) {
       $('.player-list').append('<li class="player-id-' + item.id + '">'
         + '<div class="row">'
-          + '<div class="col-xs-2">'
-            + '<div class="player-info">'
-              + '<div class="player-img-' + item.id + '"></div>'
-              + '<div class="player-name">' + item.name + '</div>'
-            + '</div>'
+          + '<div class="col-xs-3">'
+            + '<div class="player-img-' + item.id + '"></div>'
+            + '<div class="player-name">' + item.name + '</div>'
           + '</div>'
-          + '<div class="col-xs-10">'
+          + '<div class="col-xs-9">'
             + '<div class="input-area">'
               + '<form>'
-                + '<textarea name="opinion" rows="4" cols="20"></textarea>'
+                + '<input type="text" name="opinion" size="30">'
                 + '<div class="btn-area">'
                   + '<select class="selectbox" name="text">'
                     + '<option value="10">10</option>'
@@ -52,24 +50,24 @@ $(function() {
       + '</li>');
 
       $('.player-img-' + item.id).css("background-image", "url('/images/" + item.img + ".png')");
-      $('.player-img-' + item.id).width(100);
-      $('.player-img-' + item.id).height(100);
+      $('.player-img-' + item.id).height(50);
       $('.player-img-' + item.id).css("background-size", "contain");
+      $('.player-img-' + item.id).css("background-repeat", "no-repeat");
       
     });
     $('.btn-send').on('click', function() {
-      var $input = $(this).prev('input');
-      var $select = $(this).prevAll('select');
-      var $textarea = $(this).parent().prev();
+      var playerId = $(this).prev('input').val();
+      var rating = $(this).prevAll('select').val();
+      var $input = $(this).parent().prev();
 
-      localStorage.setItem('player-id' + $input.val(), $select.val());
+      localStorage.setItem('player-id' + playerId, rating);
       socket.emit('rating', {
-        id: $input.val(),
-        rating: $select.val(),
-        opinion: $textarea.val(),
+        id: playerId,
+        rating: rating,
+        opinion: $input.val(),
       });
 
-      $('.player-id-' + $input.val()).fadeOut('normal');
+      $('.player-id-' + playerId).fadeOut('normal');
     });
 
   }
