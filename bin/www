@@ -14,11 +14,13 @@ var io = socketIO.listen(server);
 var players = [
   { id: 1, name: '遠藤', img: 'endo' },
   { id: 2, name: '香川', img: 'kagawa' },
+  { id: 3, name: '柿谷', img: 'kakitani' },
 ];
 
 var userRating = {
   1: { num: 0, sum: 0, id: 1, name: '遠藤', opinion: [] },
   2: { num: 0, sum: 0, id: 2, name: '香川', opinion: [] },
+  3: { num: 0, sum: 0, id: 3, name: '柿谷', opinion: [] },
 };
 
 io.on('connection', function(socket) {
@@ -31,9 +33,9 @@ io.on('connection', function(socket) {
   socket.on('rating', function(data) {
     console.log(data);
     userRating[data.id].num++;
-    userRating[data.id].sum += parseInt(data.rating);
+    userRating[data.id].sum += parseFloat(data.rating);
     if (data.opinion) {
-      userRating[data.id].opinion.push(data.opinion);
+      userRating[data.id].opinion.push(data.opinion + '(' + data.rating + ')');
     }
     io.sockets.emit('summary view', {
       summary: userRating,
