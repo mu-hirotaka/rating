@@ -17,8 +17,8 @@ var players = [
 ];
 
 var userRating = {
-  1: { num: 0, sum: 0, id: 1, name: '遠藤'},
-  2: { num: 0, sum: 0, id: 2, name: '香川'},
+  1: { num: 0, sum: 0, id: 1, name: '遠藤', opinion: [] },
+  2: { num: 0, sum: 0, id: 2, name: '香川', opinion: [] },
 };
 
 io.on('connection', function(socket) {
@@ -32,6 +32,9 @@ io.on('connection', function(socket) {
     console.log(data);
     userRating[data.id].num++;
     userRating[data.id].sum += parseInt(data.rating);
+    if (data.opinion) {
+      userRating[data.id].opinion.push(data.opinion);
+    }
     io.sockets.emit('summary view', {
       summary: userRating,
     });

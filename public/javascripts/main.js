@@ -60,11 +60,13 @@ $(function() {
     $('.btn-send').on('click', function() {
       var $input = $(this).prev('input');
       var $select = $(this).prevAll('select');
+      var $textarea = $(this).parent().prev();
 
       localStorage.setItem('player-id' + $input.val(), $select.val());
       socket.emit('rating', {
         id: $input.val(),
         rating: $select.val(),
+        opinion: $textarea.val(),
       });
 
       $('.player-id-' + $input.val()).fadeOut('normal');
@@ -75,11 +77,10 @@ $(function() {
   function updateSummaryView(data) {
     var $table = $('.table');
     $table.empty();
-    $table.append('<thead><tr><th>順位</th><th>Name</th><th>平均</th><th>あなたの評価</th></tr></thead>');
+    $table.append('<thead><tr><th>順位</th><th>Name</th><th>平均</th><th>投票数</th><th>あなたの評価</th></tr></thead>');
     $table.append('<tbody></tbody>');
     var $tableInner = $('.table > tbody');
     var sorted = [];
-      console.log(data);
     _.each(data, function(val, key, list) {
       sorted.push(val);
     });
@@ -106,8 +107,21 @@ $(function() {
       else if (diff < 0 ) {
         diffStr = '<span style="color:#0000CD;">(' + diff + ')</span>';
       }
-      $tableInner.append('<tr><td>' + i + '</td>' + '<td>' + item.name + '</td><td>' + avg + '</td><td>' + myRating + diffStr + '</td></tr>');
+      $tableInner.append('<tr><td>' + i + '</td>' + '<td>' + item.name + '</td><td>' + avg + '</td><td>' + item.num + '</td><td>' + myRating + diffStr + '</td></tr>');
       i++;
+    });
+
+    var $div = $('.player-opinion');
+    $div.empty();
+    _.each(sorted, function(item) {
+      if (item.opinion.length > 0) {
+        $div.append('<h3>' + item.name + '</h3>');
+        $div.append('<ul>');
+        _.each(item.opinion, function(comment) {
+          $div.append('<li>' + comment + '</li>');
+        });
+        $div.append('</ul>');
+      }
     });
   }
   
