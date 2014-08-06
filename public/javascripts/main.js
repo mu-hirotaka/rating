@@ -17,7 +17,7 @@ $(function() {
           + '<div class="col-xs-10">'
             + '<div class="input-area">'
               + '<form>'
-                + '<textarea name="opinion" rows="4" cols="40"></textarea>'
+                + '<textarea name="opinion" rows="4" cols="20"></textarea>'
                 + '<div class="btn-area">'
                   + '<select class="selectbox" name="text">'
                     + '<option value="10">10</option>'
@@ -77,7 +77,7 @@ $(function() {
   function updateSummaryView(data) {
     var $table = $('.table');
     $table.empty();
-    $table.append('<thead><tr><th>順位</th><th>Name</th><th>平均</th><th>投票数</th><th>あなたの評価</th></tr></thead>');
+    $table.append('<thead><tr><th>順位</th><th>Name</th><th>平均</th><th>投票数</th><th>あなた</th></tr></thead>');
     $table.append('<tbody></tbody>');
     var $tableInner = $('.table > tbody');
     var sorted = [];
