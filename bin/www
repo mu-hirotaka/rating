@@ -23,22 +23,36 @@ var userRating = {
   3: { num: 0, sum: 0, id: 3, name: '柿谷', opinion: [] },
 };
 
+var summaries = [];
+
 io.on('connection', function(socket) {
 
   socket.emit('login', {
     players: players,
     summary: userRating,
+    summaries: summaries,
   });
 
   socket.on('rating', function(data) {
-    console.log(data);
-    userRating[data.id].num++;
-    userRating[data.id].sum += parseFloat(data.rating);
-    if (data.opinion) {
-      userRating[data.id].opinion.push(data.opinion + '(' + data.rating + ')');
+    var rating = parseFloat(data.rating);
+    if (rating > 0) {
+      userRating[data.id].num++;
+      userRating[data.id].sum += rating;
+      if (data.opinion) {
+        userRating[data.id].opinion.push(data.opinion + '(' + data.rating + ')');
+      }
+      io.sockets.emit('summary view', {
+        summary: userRating,
+        summaries: summaries,
+      });
     }
+  });
+
+  socket.on('post summary', function(data) {
+    summaries.push(data.summary);
     io.sockets.emit('summary view', {
       summary: userRating,
+      summaries: summaries,
     });
   });
 });

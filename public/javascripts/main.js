@@ -9,14 +9,16 @@ $(function() {
       $('.player-list').append('<li class="player-id-' + item.id + '">'
         + '<div class="row">'
           + '<div class="col-xs-3">'
-            + '<div class="player-img-' + item.id + '"></div>'
-            + '<div class="player-name">' + item.name + '</div>'
+            + '<div class="text-center">'
+              + '<div class="player-img-' + item.id + '"></div>'
+              + '<div class="player-name">' + item.name + '</div>'
+            + '</div>'
           + '</div>'
           + '<div class="col-xs-9">'
             + '<div class="input-area">'
               + '<input type="text" name="opinion" size="25">'
               + '<div class="btn-area">'
-                + '<select class="selectbox" name="text">'
+                + '<select name="text">'
                   + '<option value="10">10</option>'
                   + '<option value="9.5">9.5</option>'
                   + '<option value="9.0">9.0</option>'
@@ -36,19 +38,19 @@ $(function() {
                   + '<option value="2.0">2.0</option>'
                   + '<option value="1.5">1.5</option>'
                   + '<option value="1.0">1.0</option>'
+                  + '<option value="0">評価なし</option>'
                 + '</select>'
                 + '<input type="hidden" name="id" value="' + item.id + '">'
-                + '<button type="button" class="btn-send">送信</button>'
+                + '<button type="button" class="btn btn-info btn-sm btn-send">送信</button>'
               + '</div>'
             + '</div>'
           + '</div>'
         + '</div>'
       + '</li>');
 
-      $('.player-img-' + item.id).css("background-image", "url('/images/" + item.img + ".png')");
-      $('.player-img-' + item.id).height(50);
-      $('.player-img-' + item.id).css("background-size", "contain");
-      $('.player-img-' + item.id).css("background-repeat", "no-repeat");
+      var $playerImg = $('.player-img-' + item.id);
+      $playerImg.css("background-image", "url('/images/" + item.img + ".png')");
+      $playerImg.addClass('player-img-detail');
       
     });
     $('.btn-send').on('click', function() {
@@ -66,9 +68,16 @@ $(function() {
       $('.player-id-' + playerId).fadeOut('normal');
     });
 
+
+    $('.summary-btn').on('click', function() {
+      socket.emit('post summary', {
+        summary: $('#summary-text').val()
+      });
+      $('.summary').fadeOut('normal');
+    });
   }
 
-  function updateSummaryView(data) {
+  function updateSummaryView(data, summaries) {
     var $table = $('.table');
     $table.empty();
     $table.append('<thead><tr><th>順位</th><th>Name</th><th>平均</th><th>投票数</th><th>あなた</th></tr></thead>');
@@ -110,21 +119,29 @@ $(function() {
     _.each(sorted, function(item) {
       if (item.opinion.length > 0) {
         $div.append('<h3>' + item.name + '</h3>');
-        $div.append('<ul>');
+        $div.append('<ul id="player-comment-' + item.id + '"></ul>');
+        var $playerUl = $('#player-comment-' + item.id);
         _.each(item.opinion, function(comment) {
-          $div.append('<li>' + comment + '</li>');
+          $playerUl.prepend('<li>' + comment + '</li>');
         });
-        $div.append('</ul>');
       }
     });
+
+    if (summaries.length > 0) {
+      $div.append('<h3>総評</h3><ul id="summaries"></ul>');
+      var $comment = $('#summaries');
+      _.each(summaries, function(item) {
+        $comment.prepend('<li>' + item + '</li>');
+      });
+    }
   }
   
   socket.on('login', function(data) {
     initializePlayerView(data);
-    updateSummaryView(data.summary)
+    updateSummaryView(data.summary, data.summaries)
   });
 
   socket.on('summary view', function(data) {
-    updateSummaryView(data.summary)
+    updateSummaryView(data.summary, data.summaries)
   });
 });

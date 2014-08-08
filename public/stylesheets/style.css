@@ -14,7 +14,7 @@ a {
   color: #00B7FF;
 }
 
-ul {
+ul.player-list {
   list-style-type: none;
   padding: 0;
 }
@@ -23,6 +23,12 @@ ul {
   border-radius: 4px;
   background-color: #FF6699;
   margin-bottom: 5px;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+.col-xs-3, .col-xs-9 {
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 .jumbotron {
@@ -57,10 +63,34 @@ ul {
 
 .player-img {
   box-sizing: border-box;
-  background-repeat: no-repeat;
 }
+.player-img-detail {
+  height: 50px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 .player-name {
   text-align: center;
   color: #fff;
 }
 
+.summary {
+
+}
+.summary > p {
+  background-color: #cca6bf;
+  color: #fff;
+  padding: 4px;
+  margin-bottom: 0px;
+}
+.summary > textarea {
+  resize: none;
+  border-left: 5px solid #cca6bf;
+  border-right: 5px solid #cca6bf;
+  border-bottom: 5px solid #cca6bf;
+  border-top: none;
+}
+.summary > button {
+}
