@@ -36,8 +36,6 @@ $(function() {
                   + '<option value="2.0">2.0</option>'
                   + '<option value="1.5">1.5</option>'
                   + '<option value="1.0">1.0</option>'
-                  + '<option value="0.5">0.5</option>'
-                  + '<option value="0">0</option>'
                 + '</select>'
                 + '<input type="hidden" name="id" value="' + item.id + '">'
                 + '<button type="button" class="btn-send">送信</button>'
