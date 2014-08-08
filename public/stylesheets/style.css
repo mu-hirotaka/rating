@@ -94,3 +94,8 @@ ul.player-list {
 }
 .summary > button {
 }
+
+span.mom {
+  margin-left: 4px;
+  font-size: 12px;
+}
