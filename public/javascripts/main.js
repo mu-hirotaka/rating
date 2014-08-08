@@ -42,7 +42,6 @@ $(function() {
                 + '</select>'
                 + '<input type="hidden" name="id" value="' + item.id + '">'
                 + '<button type="button" class="btn btn-info btn-sm btn-send">送信</button>'
-                + '<span class="mom"><input type="checkbox" name="mom" value="1"> MoM</span>'
               + '</div>'
             + '</div>'
           + '</div>'
@@ -58,10 +57,11 @@ $(function() {
       var playerId = $(this).prev('input').val();
       var rating = $(this).prevAll('select').val();
       var $input = $(this).parent().prev();
-      var $span = $(this).next('span');
-      if ($span && $span.children('input').prop('checked')) {
-        $('.mom').fadeOut('normal');
-      }
+//      var $span = $(this).next('span');
+//      if ($span && $span.children('input').prop('checked')) {
+//        $('.mom').fadeOut('normal');
+//      }
+//                + '<span class="mom"><input type="checkbox" name="mom" value="1"> MoM</span>'
 
       localStorage.setItem('player-id' + playerId, rating);
       socket.emit('rating', {

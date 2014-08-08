@@ -80,6 +80,7 @@ ul.player-list {
 
 }
 .summary > p {
+  text-align: center;
   background-color: #cca6bf;
   color: #fff;
   padding: 4px;
@@ -99,3 +100,23 @@ span.mom {
   margin-left: 4px;
   font-size: 12px;
 }
+
+.mom {
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+  border-left: 5px solid #cca6bf;
+  border-right: 5px solid #cca6bf;
+  border-bottom: 5px solid #cca6bf;
+  border-top: none;
+}
+.mom > select {
+  margin-top: 5px;
+}
+
+.mom > p {
+  background-color: #cca6bf;
+  color: #fff;
+  padding: 4px;
+  margin-bottom: 0px;
+}
+
