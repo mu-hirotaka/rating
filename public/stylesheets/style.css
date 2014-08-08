@@ -1,6 +1,5 @@
 body {
   padding: 2px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background-color: #eee;
 }
 
@@ -31,7 +30,7 @@ ul.player-list {
   padding-right: 5px;
 }
 
-.jumbotron {
+.my-jumbotron {
   background-color: #0033FF;
   color: #fff;
   text-align: center;
@@ -39,9 +38,8 @@ ul.player-list {
   margin-bottom: 10px;
 }
 .jumbotron > h2 {
-  font-weight: bold;
 }
-.jumbotron > p {
+.my-jumbotron > p {
   font-size: 14px;
 }
 
